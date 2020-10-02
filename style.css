@@ -1,60 +1,63 @@
-@font-face {
-	font-family: harlow;
-	src: url("fonts/HARLOW.ttf");
-}
-
-*,*:focus,*:hover{
-    outline:none;
-}
-
 body {
-	background-image: url("img/bg_tile.png");
-	font-family: Verdana, Geneva, sans-serif;
-	margin: 0px !important;
-	width: 200px;
+  margin: 0px;
 }
 
-h1 {
-	font-family: harlow;
-	text-align: center;
-	width: 100%;
+#imgbox {
+  height: 90vh;
+  width: 100%;
+}
+#imgbox canvas{
+  background-color: #7b8d94;
+  display: block;
+  padding: 0px;
 }
 
-tr {
-	text-align: center;
+#palette-nav{
+  align-items: center;
+  background-color: #7b8d94;
+  display: grid;
+  grid-column-gap: 1vw;
+  height: 10vh;
+  padding-left: 1vh;
+}
+#palette-open{
+  background: #a4b4ba;
+  border-radius: 14px;
+  display: flex;
+  height: 8vh;
+  justify-content: center;
+  width: 8vh;
+}
+#palette-nav img{
+  align-self: flex-start;
+  display: block;
+  margin-top: auto;
+  width: 7vh;
 }
 
-#title {
-	background: #333;
-	color: #fff;
-	display: block;
-	margin: 0;
+#toolbar {
+  background-color: #7b8d94;
+  display: block;
+  margin: 0px;
+  padding: 10px;
 }
 
-.btn {
-	box-shadow: inset 0px 1px 0px 0px #fce2c1;
-	background: linear-gradient(to bottom, #ffa291 5%, #f55d42 100%);
-	background-color: #ffa291;
-	border-radius: 6px;
-	border: 1px solid #e3644d;
-	display: inline-block;
-	cursor: pointer;
-	color:#ffffff;
-	height: 50px;
-	padding: 6px 24px;
-	text-decoration: none;
-	text-shadow: 0px 1px 0px #cc9f52;
-	width: 50px;
+#toolbar div{
+  background-color: #2a2f30;
+  margin-bottom: 10px;
+  width: 100%;
 }
-.btn:hover {
-	background: linear-gradient(to bottom, #f55d42 5%, #ffa291 100%);
-	background-color: #f55d42;
+#toolbar img {
+  display: block;
+  margin: 0px;
+  opacity: 1.0;
+  width: 100%;
 }
-.btn:active {
-	position: relative;
-	top: 1px;
-}
-.btn > img {
-	position: relative;
-	right: 16px;
+
+.grid-container {
+  display: grid;
+  grid-template-columns: 9fr minmax(50px, 1fr);
+  background-color: #2196F3;
+  padding: 0px;
+  width: 100%;
 }
