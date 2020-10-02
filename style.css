@@ -1,0 +1,60 @@
+@font-face {
+	font-family: harlow;
+	src: url("fonts/HARLOW.ttf");
+}
+
+*,*:focus,*:hover{
+    outline:none;
+}
+
+body {
+	background-image: url("img/bg_tile.png");
+	font-family: Verdana, Geneva, sans-serif;
+	margin: 0px !important;
+	width: 200px;
+}
+
+h1 {
+	font-family: harlow;
+	text-align: center;
+	width: 100%;
+}
+
+tr {
+	text-align: center;
+}
+
+#title {
+	background: #333;
+	color: #fff;
+	display: block;
+	margin: 0;
+}
+
+.btn {
+	box-shadow: inset 0px 1px 0px 0px #fce2c1;
+	background: linear-gradient(to bottom, #ffa291 5%, #f55d42 100%);
+	background-color: #ffa291;
+	border-radius: 6px;
+	border: 1px solid #e3644d;
+	display: inline-block;
+	cursor: pointer;
+	color:#ffffff;
+	height: 50px;
+	padding: 6px 24px;
+	text-decoration: none;
+	text-shadow: 0px 1px 0px #cc9f52;
+	width: 50px;
+}
+.btn:hover {
+	background: linear-gradient(to bottom, #f55d42 5%, #ffa291 100%);
+	background-color: #f55d42;
+}
+.btn:active {
+	position: relative;
+	top: 1px;
+}
+.btn > img {
+	position: relative;
+	right: 16px;
+}
