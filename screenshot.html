@@ -7,6 +7,7 @@
 
   <body>
     <div id="toolbar-top">
+      <button id="btn-pick-new" class="btn" disabled="true">Pick new color</button>
       <button class="btn">Save image</button>
       <button class="btn">Visualizer</button>
       <button class="btn">Grayscale UI</button>
@@ -33,6 +34,15 @@
           <input type="range" min="0" max="255" value="50" class="slider" id="range-green">
           <div>Blue</div>
           <input type="range" min="0" max="255" value="50" class="slider" id="range-blue">
+        </div>
+        <label>Select palette:</label>
+        <select id="palette-dropdown">
+          <option>New palette</option>
+          <option>Living room</option>
+        </select>
+        <button class="btn">Add to palette</button>
+        <div id="palette-container">
+          <!-- Add palette objs? -->
         </div>
       </div>
     </div>

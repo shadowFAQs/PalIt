@@ -26,21 +26,33 @@ body {
   padding: 0px;
 }
 
+#palette-container {
+  flex-grow: 1;
+  margin-top: 10px;
+  width: 100%;
+}
+
+#palette-dropdown {
+  margin-bottom: 10px;
+}
+
 #toolbar-right {
+  align-items: stretch;
   background-image: url("img/bg_tile.png");
-  display: block;
+  display: flex;
+  flex-flow: column nowrap;
   margin: 0px;
   padding: 10px;
-}
-#toolbar-right > div {
-  background-color: #2a2f30;
-  margin-bottom: 10px;
-  width: 100%;
 }
 #toolbar-right img {
   display: block;
   margin: 0px;
   opacity: 1.0;
+  width: 100%;
+}
+#toolbar-right > div {
+  background-color: #2a2f30;
+  margin-bottom: 10px;
   width: 100%;
 }
 #toolbar-right > input {
@@ -58,7 +70,6 @@ body {
 }
 #toolbar-top > button {
   align-self: center;
-  font-weight: bold;
   height: 4vh;
   margin: 0 5px;
 }
@@ -82,10 +93,11 @@ body {
   border-radius: 6px;
   border: 1px solid #e3644d;
   cursor: pointer;
-  color:#ffffff;
+  color: #ffffff;
+  font-weight: bold;
   padding: 6px 24px;
   text-decoration: none;
-  text-shadow: 0px 1px 0px #cc9f52;
+  text-shadow: 0px 1px 0px #cc6852;
 }
 .btn:hover {
   background: linear-gradient(to bottom, #f55d42 5%, #ffa291 100%);
@@ -94,6 +106,14 @@ body {
 .btn:active {
   position: relative;
   top: 1px;
+}
+.btn:disabled {
+  box-shadow: inset 0px 1px 0px 0px #c2a39d;
+  background: #8f7571;
+  background-color: #8f7571;
+  border: 1px solid #8c6f69;
+  color: #d1d1d1;
+  text-shadow: 0px 1px 0px #6b6666;
 }
 .btn > img {
   position: relative;
