@@ -20,8 +20,8 @@ body {
   height: 90vh;
   width: 100%;
 }
-#imgbox canvas {
-  background-color: #ccc;
+#imgbox > canvas {
+  background-color: #333;
   display: block;
   padding: 0px;
 }
@@ -32,7 +32,7 @@ body {
   margin: 0px;
   padding: 10px;
 }
-#toolbar-right div{
+#toolbar-right > div {
   background-color: #2a2f30;
   margin-bottom: 10px;
   width: 100%;
@@ -41,6 +41,9 @@ body {
   display: block;
   margin: 0px;
   opacity: 1.0;
+  width: 100%;
+}
+#toolbar-right > input {
   width: 100%;
 }
 
@@ -103,4 +106,15 @@ body {
   background-color: #2196F3;
   padding: 0px;
   width: 100%;
+}
+
+.slider-container {
+  color: #fff;
+  padding-top: 5px;
+  text-align: center;
+  width: 100%;
+}
+.slider {
+  margin: 5px 5%;
+  width: 90%;
 }

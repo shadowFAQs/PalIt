@@ -41,13 +41,17 @@ function updateImgSrc(url) {
 
     image.src = url;
 
-    document.body.addEventListener("mousemove", (e) => {
+    document.body.addEventListener('mousemove', (e) => {
         if (colorcapture_active) {
             mouse_pos = getCursorPosition(canvas, e);
             var imgData = window.ctx.getImageData(mouse_pos[0], mouse_pos[1], 1, 1).data;
             var hex = "#" + ("000000" + rgbToHex(imgData[0], imgData[1], imgData[2])).slice(-6);
-            document.getElementById("color-preview").style.backgroundColor = hex;
-            document.getElementById("color-preview-hex").textContent = hex;
+            document.getElementById('color-preview').style.backgroundColor = hex;
+            document.getElementById('color-preview-hex').textContent = hex;
+
+            document.getElementById('range-red').value = imgData[0].toString();
+            document.getElementById('range-green').value = imgData[1].toString();
+            document.getElementById('range-blue').value = imgData[2].toString();
         }
     });
 }
