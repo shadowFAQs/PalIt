@@ -71,6 +71,10 @@ function updateImgSrc (url) {
         sliderB = document.getElementById('range-blue');
         sliderB.oninput = updateColor;
         btnPickNew = document.getElementById('btn-pick-new');
+        btnPickNew.onclick = function () {
+            colorCaptureActive = true;
+            btnPickNew.disabled = true;
+        }
     }
 
     image.src = url;
