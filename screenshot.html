@@ -1,24 +1,28 @@
 <html>
+
   <head>
     <link rel="stylesheet" type="text/css" href="style.css">
     <script type="text/javascript" src="screenshot.js"></script>
   </head>
+
   <body>
-    <div id="palette-nav">
-      <div id="palette-open">
-        <img src="img/icon32.png">
-      </div>
+    <div id="toolbar-top">
+      <button class="btn">Save image</button>
+      <button class="btn">Visualizer</button>
+      <button class="btn">Grayscale UI</button>
+      <h2><span>Color Picker</span></h2>
     </div>
     <div class="grid-container">
       <div id="imgbox">
-        <canvas id="main_canvas">
+        <canvas id="main-canvas">
           Your browser does not support the HTML5 canvas tag.
         </canvas>
       </div>
-      <div id="toolbar">
-        <div id="colorpreview">
+      <div id="toolbar-right">
+        <div id="color-preview">
           <! -- 1x1 px transparent GIFs for relative sizing of btns -->
           <img src="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="/>
+          <div id="color-preview-hex">preview</div>
         </div>
         <div id="btn2">
           <img src="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="/>
@@ -27,4 +31,5 @@
     </div>
     <img id="temp" src="img/icon32.png"/>
   </body>
+
 </html>

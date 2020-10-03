@@ -20,12 +20,12 @@ function rgbToHex(r, g, b) {
 function updateImgSrc(url) {
 
     var image = document.getElementById("temp");
-    var canvas = document.getElementById("main_canvas");
+    var canvas = document.getElementById("main-canvas");
     
     image.onload = function () {
         ctx = canvas.getContext("2d");
 
-        canvas.height = document.getElementById('toolbar').getBoundingClientRect()['height'];
+        canvas.height = document.getElementById('toolbar-right').getBoundingClientRect()['height'];
         canvas.width = document.getElementById('imgbox').getBoundingClientRect()['width'];
 
         var hRatio = canvas.width / image.width;
@@ -46,7 +46,8 @@ function updateImgSrc(url) {
             mouse_pos = getCursorPosition(canvas, e);
             var imgData = window.ctx.getImageData(mouse_pos[0], mouse_pos[1], 1, 1).data;
             var hex = "#" + ("000000" + rgbToHex(imgData[0], imgData[1], imgData[2])).slice(-6);
-            document.getElementById("colorpreview").style.backgroundColor = hex;
+            document.getElementById("color-preview").style.backgroundColor = hex;
+            document.getElementById("color-preview-hex").textContent = hex;
         }
     });
 }
