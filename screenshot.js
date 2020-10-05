@@ -8,12 +8,32 @@ var sliderR = null;
 var sliderB = null;
 var sliderG = null;
 var btnPickNew = null;
+var btnAddColor = null;
+var inputColorName = null;
 var paletteContainer = null;
 var paletteBlocks = [];
 
 chrome.extension.onMessage.addListener (function(msg, sender, sendResponse) {
     updateImgSrc(msg.url);
 });
+
+function addColorToPalette (color) {
+    let block = document.createElement('div');
+    // console.log(color);
+    block.style.backgroundColor = color;
+
+    let label = document.createElement('div');
+    if (inputColorName.value !== '') {
+        label.textContent = inputColorName.value;
+        inputColorName.value = '';
+    }else{
+        label.textContent = color.toUpperCase();
+    }
+    label.className = 'palette-color-label';
+    block.appendChild(label);
+
+    paletteContainer.appendChild(block);
+}
 
 function getCursorPosition (canvas, event) {
     const rect = canvas.getBoundingClientRect()
@@ -22,13 +42,17 @@ function getCursorPosition (canvas, event) {
     return [x, y];
 }
 
+function getCurrentHexColor() {
+    r = parseInt(sliderR.value)
+    g = parseInt(sliderG.value)
+    b = parseInt(sliderB.value)
+    return "#" + ("000000" + rgbToHex(r, g, b)).slice(-6);
+}
+
 function loadPalette () {
     let colors = ['red', 'blue', 'yellow', 'green', 'orange', 'red', 'blue', 'yellow', 'green', 'orange'];
     for (const color of colors) {
-        let block = document.createElement('div');
-        console.log(color);
-        block.style.backgroundColor = color;
-        paletteContainer.appendChild(block);
+        addColorToPalette(color);
     }
 }
 
@@ -48,12 +72,9 @@ function updateColor (captureOff=false) {
         colorCaptureActive = false;
         btnPickNew.disabled = false;
     }
-    r = parseInt(sliderR.value)
-    g = parseInt(sliderG.value)
-    b = parseInt(sliderB.value)
-    hexColor = "#" + ("000000" + rgbToHex(r, g, b)).slice(-6);
-    colorPreview.style.backgroundColor = hexColor;
-    colorPreviewHex.textContent = hexColor;
+    
+    colorPreview.style.backgroundColor = getCurrentHexColor();
+    colorPreviewHex.textContent = getCurrentHexColor().toUpperCase();
 }
 
 function updateEyeDropper() {
@@ -99,8 +120,14 @@ function updateImgSrc (url) {
             colorCaptureActive = !colorCaptureActive;
             updateEyeDropper();
         }
-        paletteContainer = document.getElementById('palette-container')
-        loadPalette();
+        btnAddColor = document.getElementById('btn-add');
+        btnAddColor.onclick = function () {
+            if (colorCaptureActive == true) return;
+            addColorToPalette(getCurrentHexColor());
+        }
+        inputColorName = document.getElementById('color-name');
+
+        paletteContainer = document.getElementById('palette-container');
     }
 
     image.src = url;

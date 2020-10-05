@@ -40,9 +40,12 @@ body {
   width: 100%;
 }
 #palette-container > div {
-  border: 1px solid #333;
+  align-items: center;
+  border: 1px solid #444;
   border-radius: 8px;
+  display: flex;
   height: 40px;
+  justify-content: center;
   margin: 5px 5px 0 5px;
 }
 #palette-container > div:before {
@@ -61,8 +64,8 @@ body {
   display: flex;
   flex-flow: column nowrap;
   margin: 0px;
-  max-height: calc(90vh - 20px); /* Account for margins*/
-  padding: 10px 10px 10px 10px;
+  max-height: calc(90vh - 20px); /* Account for top/bottom padding*/
+  padding: 10px;
 }
 #toolbar-right img {
   display: block;
@@ -157,7 +160,15 @@ body {
   grid-template-columns: 9fr minmax(50px, 1fr);
   background-color: #2196F3;
   padding: 0px;
-  width: 100%;
+}
+
+.palette-color-label {
+  background-color: #33333366;
+  border-radius: 4px;
+  color: #fff;
+  padding: 0 4px;
+  font-size: x-small;
+  text-align: center;
 }
 
 .slider-container {
