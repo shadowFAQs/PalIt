@@ -7,6 +7,10 @@ body {
   margin: 0px;
 }
 
+#color-name {
+  margin-bottom: 10px;
+}
+
 #color-preview-hex {
   background-color: #333;
   bottom: 0;
@@ -27,9 +31,24 @@ body {
 }
 
 #palette-container {
+  display: flex;
+  flex-flow: column nowrap;
   flex-grow: 1;
-  margin-top: 10px;
+  margin: 10px 0 0 0;
+  overflow-y: scroll;
+  padding-bottom: 5px;
   width: 100%;
+}
+#palette-container > div {
+  border: 1px solid #333;
+  border-radius: 8px;
+  height: 40px;
+  margin: 5px 5px 0 5px;
+}
+#palette-container > div:before {
+  content: "";
+  float: left;
+  padding-top: 100%;
 }
 
 #palette-dropdown {
@@ -42,21 +61,25 @@ body {
   display: flex;
   flex-flow: column nowrap;
   margin: 0px;
-  padding: 10px;
+  max-height: calc(90vh - 20px); /* Account for margins*/
+  padding: 10px 10px 10px 10px;
 }
 #toolbar-right img {
   display: block;
   margin: 0px;
+  max-height: 89vh;
   opacity: 1.0;
   width: 100%;
 }
 #toolbar-right > div {
   background-color: #2a2f30;
-  margin-bottom: 10px;
   width: 100%;
 }
 #toolbar-right > input {
   width: 100%;
+}
+#toolbar-right > label {
+  margin-top: 10px;
 }
 
 #toolbar-top {
@@ -72,7 +95,9 @@ body {
   align-self: center;
   height: 4vh;
   margin: 0 5px;
+  position: relative;
 }
+
 #toolbar-top > h2 {
   flex-grow: 1;
   margin: 0 0 0 -10vw;
@@ -87,7 +112,7 @@ body {
 }
 
 .btn {
-  box-shadow: inset 0px 1px 0px 0px #fce2c1;
+  box-shadow: inset 0px 1px #fce2c1;
   background: linear-gradient(to bottom, #ffa291 5%, #f55d42 100%);
   background-color: #ffa291;
   border-radius: 6px;
@@ -107,17 +132,24 @@ body {
   position: relative;
   top: 1px;
 }
-.btn:disabled {
-  box-shadow: inset 0px 1px 0px 0px #c2a39d;
-  background: #8f7571;
-  background-color: #8f7571;
-  border: 1px solid #8c6f69;
-  color: #d1d1d1;
-  text-shadow: 0px 1px 0px #6b6666;
-}
 .btn > img {
   position: relative;
-  right: 16px;
+  top: -4px;
+}
+.btn-active {
+  box-shadow: none;
+  background: #ff5030;
+  background-color: #ff5030;
+  border: 1px solid #7a2c1d;
+  color: #000;
+  text-shadow: none;
+}
+.btn-active > img {
+  top: -5px;
+}
+
+.btn-tooltip:hover .tooltip {
+  visibility: visible;
 }
 
 .grid-container {
@@ -137,4 +169,30 @@ body {
 .slider {
   margin: 5px 5%;
   width: 90%;
+}
+
+.tooltip {
+  background-color: #222;
+  border-radius: 6px;
+  color: #fff;
+  left: 110%;
+  padding: 5px 0;
+  pointer-events: none;
+  position: absolute;
+  text-align: center;
+  text-shadow: none;
+  top: 5px;
+  visibility: hidden;
+  width: 120px;
+  z-index: 1;
+}
+.tooltip::after {
+  border-color: transparent #222 transparent transparent;
+  border-style: solid;
+  border-width: 5px;
+  content: "";
+  margin-top: -5px;
+  position: absolute;
+  right: 100%;
+  top: 50%;
 }

@@ -7,8 +7,14 @@
 
   <body>
     <div id="toolbar-top">
-      <button id="btn-pick-new" class="btn" disabled="true">Pick new color</button>
-      <button class="btn">Save image</button>
+      <button id="btn-eye_dropper" class="btn btn-tooltip btn-active">
+        <img width="32" src="img/icon_eye_dropper.png">
+        <span class="tooltip">Eye dropper</span>
+      </button>
+      <button id="btn-save" class="btn btn-tooltip">
+        <img width="32" src="img/icon_save.png">
+        <span class="tooltip">Save image</span>
+      </button>
       <button class="btn">Visualizer</button>
       <button class="btn">Grayscale UI</button>
       <h2><span>Color Picker</span></h2>
@@ -26,7 +32,7 @@
           <div id="color-preview-hex">preview</div>
         </div>
         <label>Color name:</label>
-        <input type="text" id="color-name"><br><br>
+        <input type="text" id="color-name">
         <div class="slider-container">
           <div>Red</div>
           <input type="range" min="0" max="255" value="50" class="slider" id="range-red">
@@ -41,9 +47,7 @@
           <option>Living room</option>
         </select>
         <button class="btn">Add to palette</button>
-        <div id="palette-container">
-          <!-- Add palette objs? -->
-        </div>
+        <div id="palette-container"></div>
       </div>
     </div>
     <img id="temp" src="img/icon32.png"/>

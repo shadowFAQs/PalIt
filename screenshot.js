@@ -8,6 +8,8 @@ var sliderR = null;
 var sliderB = null;
 var sliderG = null;
 var btnPickNew = null;
+var paletteContainer = null;
+var paletteBlocks = [];
 
 chrome.extension.onMessage.addListener (function(msg, sender, sendResponse) {
     updateImgSrc(msg.url);
@@ -20,9 +22,19 @@ function getCursorPosition (canvas, event) {
     return [x, y];
 }
 
+function loadPalette () {
+    let colors = ['red', 'blue', 'yellow', 'green', 'orange', 'red', 'blue', 'yellow', 'green', 'orange'];
+    for (const color of colors) {
+        let block = document.createElement('div');
+        console.log(color);
+        block.style.backgroundColor = color;
+        paletteContainer.appendChild(block);
+    }
+}
+
 function pickColor () {
     colorCaptureActive = false;
-    btnPickNew.disabled = false;
+    updateEyeDropper();
 }
 
 function rgbToHex (r, g, b) {
@@ -31,13 +43,25 @@ function rgbToHex (r, g, b) {
     return ((r << 16) | (g << 8) | b).toString(16);
 }
 
-function updateColor () {
+function updateColor (captureOff=false) {
+    if (captureOff == true) {
+        colorCaptureActive = false;
+        btnPickNew.disabled = false;
+    }
     r = parseInt(sliderR.value)
     g = parseInt(sliderG.value)
     b = parseInt(sliderB.value)
     hexColor = "#" + ("000000" + rgbToHex(r, g, b)).slice(-6);
     colorPreview.style.backgroundColor = hexColor;
     colorPreviewHex.textContent = hexColor;
+}
+
+function updateEyeDropper() {
+    if (colorCaptureActive == true) {
+        btnPickNew.className = 'btn btn-tooltip btn-active';
+    }else{
+        btnPickNew.className = 'btn btn-tooltip';
+    }
 }
 
 function updateImgSrc (url) {
@@ -65,16 +89,18 @@ function updateImgSrc (url) {
         colorPreview = document.getElementById('color-preview');
         colorPreviewHex = document.getElementById('color-preview-hex');
         sliderR = document.getElementById('range-red');
-        sliderR.oninput = updateColor;
+        sliderR.oninput = function () { updateColor(captureOff=true) }
         sliderG = document.getElementById('range-green');
-        sliderG.oninput = updateColor;
+        sliderG.oninput = function () { updateColor(captureOff=true) }
         sliderB = document.getElementById('range-blue');
-        sliderB.oninput = updateColor;
-        btnPickNew = document.getElementById('btn-pick-new');
+        sliderB.oninput = function () { updateColor(captureOff=true) }
+        btnPickNew = document.getElementById('btn-eye_dropper');
         btnPickNew.onclick = function () {
-            colorCaptureActive = true;
-            btnPickNew.disabled = true;
+            colorCaptureActive = !colorCaptureActive;
+            updateEyeDropper();
         }
+        paletteContainer = document.getElementById('palette-container')
+        loadPalette();
     }
 
     image.src = url;

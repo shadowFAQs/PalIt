@@ -14,7 +14,7 @@
     "default_title": "PalIt Title",
     "default_popup": "popup.html"
   },
-  "permissions": ["activeTab", "tabs"],
+  "permissions": ["activeTab", "storage", "tabs"],
   "content_scripts":[
     {
       "css": ["style.css"],
