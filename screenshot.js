@@ -9,26 +9,49 @@ var sliderB = null;
 var sliderG = null;
 var btnPickNew = null;
 var btnAddColor = null;
+var btnSavePalette = null;
 var inputColorName = null;
 var paletteContainer = null;
 var paletteBlocks = [];
+var currentPalette = {
+    name: '',
+    colors: []
+}
 
 chrome.extension.onMessage.addListener (function(msg, sender, sendResponse) {
     updateImgSrc(msg.url);
 });
 
 function addColorToPalette (color) {
+    // Check if color is already in the current palette
+    if (currentPalette.colors.length) {
+        let colors = currentPalette.colors.map(c => c.hex);
+        if (colors.includes(color)){
+            alert(`This palette already contains the color ${color.toUpperCase()}`)
+            return;
+        }
+    }
+
+    let colorName = '';
+    if (inputColorName.value !== '') {
+        colorName = inputColorName.value;
+        inputColorName.value = '';
+    }else{
+        colorName = color.toUpperCase();
+    }
+
+    let newColor = {
+        name: colorName,
+        hex: color
+    }
+    currentPalette.colors.push(newColor);
+
+    // TODO: Move the below to its own fn 'showPalette'
     let block = document.createElement('div');
     // console.log(color);
     block.style.backgroundColor = color;
-
     let label = document.createElement('div');
-    if (inputColorName.value !== '') {
-        label.textContent = inputColorName.value;
-        inputColorName.value = '';
-    }else{
-        label.textContent = color.toUpperCase();
-    }
+    label.textContent = colorName;
     label.className = 'palette-color-label';
     block.appendChild(label);
 
@@ -42,10 +65,7 @@ function getCursorPosition (canvas, event) {
     return [x, y];
 }
 
-function getCurrentHexColor() {
-    r = parseInt(sliderR.value)
-    g = parseInt(sliderG.value)
-    b = parseInt(sliderB.value)
+function getHexColor (r=parseInt(sliderR.value), g=parseInt(sliderG.value), b=parseInt(sliderB.value)) {
     return "#" + ("000000" + rgbToHex(r, g, b)).slice(-6);
 }
 
@@ -73,8 +93,8 @@ function updateColor (captureOff=false) {
         btnPickNew.disabled = false;
     }
     
-    colorPreview.style.backgroundColor = getCurrentHexColor();
-    colorPreviewHex.textContent = getCurrentHexColor().toUpperCase();
+    colorPreview.style.backgroundColor = getHexColor();
+    colorPreviewHex.textContent = getHexColor().toUpperCase();
 }
 
 function updateEyeDropper() {
@@ -123,8 +143,9 @@ function updateImgSrc (url) {
         btnAddColor = document.getElementById('btn-add');
         btnAddColor.onclick = function () {
             if (colorCaptureActive == true) return;
-            addColorToPalette(getCurrentHexColor());
+            addColorToPalette(getHexColor());
         }
+        btnSavePalette = document.getElementById('btn-save-palette');
         inputColorName = document.getElementById('color-name');
 
         paletteContainer = document.getElementById('palette-container');

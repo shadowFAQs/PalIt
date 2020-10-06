@@ -1,117 +1,17 @@
+/* ------- DOCUMENT-WIDE ------- */
+
 *,*:focus,*:hover{
     outline:none;
 }
 
+html {
+  margin: 0;
+  overflow: hidden;
+}
+
 body {
   font-family: Verdana, Geneva, sans-serif;
-  margin: 0px;
-}
-
-#color-name {
-  margin-bottom: 10px;
-}
-
-#color-preview-hex {
-  background-color: #333;
-  bottom: 0;
-  color: #fff;
-  position: relative;
-  text-align: center;
-}
-
-#imgbox {
-  background-color: #333;
-  height: 90vh;
-  width: 100%;
-}
-#imgbox > canvas {
-  background-color: #333;
-  display: block;
-  padding: 0px;
-}
-
-#palette-container {
-  display: flex;
-  flex-flow: column nowrap;
-  flex-grow: 1;
-  margin: 10px 0 0 0;
-  overflow-y: scroll;
-  padding-bottom: 5px;
-  width: 100%;
-}
-#palette-container > div {
-  align-items: center;
-  border: 1px solid #444;
-  border-radius: 8px;
-  display: flex;
-  height: 40px;
-  justify-content: center;
-  margin: 5px 5px 0 5px;
-}
-#palette-container > div:before {
-  content: "";
-  float: left;
-  padding-top: 100%;
-}
-
-#palette-dropdown {
-  margin-bottom: 10px;
-}
-
-#toolbar-right {
-  align-items: stretch;
-  background-image: url("img/bg_tile.png");
-  display: flex;
-  flex-flow: column nowrap;
-  margin: 0px;
-  max-height: calc(90vh - 20px); /* Account for top/bottom padding*/
-  padding: 10px;
-}
-#toolbar-right img {
-  display: block;
-  margin: 0px;
-  max-height: 89vh;
-  opacity: 1.0;
-  width: 100%;
-}
-#toolbar-right > div {
-  background-color: #2a2f30;
-  width: 100%;
-}
-#toolbar-right > input {
-  width: 100%;
-}
-#toolbar-right > label {
-  margin-top: 10px;
-}
-
-#toolbar-top {
-  align-items: stretch;
-  background-color: #333;
-  color: #fff;
-  display: flex;
-  flex-flow: row nowrap;
-  height: 10vh;
-  padding: 0 5px;
-}
-#toolbar-top > button {
-  align-self: center;
-  height: 4vh;
-  margin: 0 5px;
-  position: relative;
-}
-
-#toolbar-top > h2 {
-  flex-grow: 1;
-  margin: 0 0 0 -10vw;
-  pointer-events: none;
-  text-align: center;
-}
-#toolbar-top > h2 > span {
-  display: inline-block;
-  font-size: xx-large;
-  line-height: 10vh;
-  vertical-align: middle;
+  margin: 0;
 }
 
 .btn {
@@ -123,7 +23,7 @@ body {
   cursor: pointer;
   color: #ffffff;
   font-weight: bold;
-  padding: 6px 24px;
+  padding: 6px;
   text-decoration: none;
   text-shadow: 0px 1px 0px #cc6852;
 }
@@ -135,10 +35,7 @@ body {
   position: relative;
   top: 1px;
 }
-.btn > img {
-  position: relative;
-  top: -4px;
-}
+
 .btn-active {
   box-shadow: none;
   background: #ff5030;
@@ -153,33 +50,6 @@ body {
 
 .btn-tooltip:hover .tooltip {
   visibility: visible;
-}
-
-.grid-container {
-  display: grid;
-  grid-template-columns: 9fr minmax(50px, 1fr);
-  background-color: #2196F3;
-  padding: 0px;
-}
-
-.palette-color-label {
-  background-color: #33333366;
-  border-radius: 4px;
-  color: #fff;
-  padding: 0 4px;
-  font-size: x-small;
-  text-align: center;
-}
-
-.slider-container {
-  color: #fff;
-  padding-top: 5px;
-  text-align: center;
-  width: 100%;
-}
-.slider {
-  margin: 5px 5%;
-  width: 90%;
 }
 
 .tooltip {
@@ -206,4 +76,150 @@ body {
   position: absolute;
   right: 100%;
   top: 50%;
+}
+
+/* ------- TOP TOOLBAR ------- */
+
+#toolbar-top {
+  background-color: #333;
+  color: #fff;
+  height: 4em;
+  min-width: 970px;
+  padding: 0 5px;
+  width: 100vw;
+  vertical-align: middle;
+}
+#toolbar-top button {
+  height: 3em;
+}
+#toolbar-top .btn img {
+  position: relative;
+  top: -4px;
+}
+#toolbar-top h2 {
+  font-size: xx-large;
+  pointer-events: none;
+  text-align: center;
+}
+
+/* ------- CANVAS ------- */
+
+#imgbox {
+  background-color: #333;
+  height: calc(100% - 6em);
+  padding: 0;
+  width: calc(100vw - 128px); /* Right toolbar width = 108; +20??? */
+}
+#imgbox > canvas {
+  background-color: #333;
+  display: block;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+}
+
+/* ------- RIGHT TOOLBAR ------- */
+
+#toolbar-right {
+  align-items: stretch;
+  background-image: url("img/bg_tile.png");
+  display: flex;
+  flex-flow: column nowrap;
+  margin: 0px;
+  height: calc(100% - 4em - 20px);
+  min-width: 108px;
+  padding: 10px;
+  position: absolute;
+  right: 0;
+  top: 4em;
+  width: 108px;
+}
+#toolbar-right > button {
+  margin-top: 10px;
+}
+#toolbar-right > div {
+  background-color: #2a2f30;
+  width: 100%;
+}
+#toolbar-right > input {
+  width: 100%;
+}
+#toolbar-right > label {
+  margin-top: 10px;
+}
+
+#color-preview {
+  border: 1px solid #444;
+}
+#color-preview > img {
+  display: block;
+  margin: 0px;
+  max-height: 89vh;
+  opacity: 1.0;
+  width: 100%;
+}
+
+#color-preview-hex {
+  background-color: #333;
+  bottom: 0;
+  color: #fff;
+  position: relative;
+  text-align: center;
+}
+
+#color-name {
+  margin-bottom: 10px;
+}
+
+#palette-container {
+  display: flex;
+  flex-flow: column nowrap;
+  flex-grow: 1;
+  overflow-y: scroll;
+  padding-bottom: 5px;
+  width: 100%;
+}
+#palette-container > div {
+  align-items: center;
+  border: 1px solid #444;
+  border-radius: 8px;
+  display: flex;
+  height: 40px;
+  justify-content: center;
+  margin: 5px 5px 0 5px;
+}
+#palette-container > div:before {
+  content: "";
+  float: left;
+  padding-top: 100%;
+}
+
+#palette-dropdown {
+  margin-bottom: 10px;
+}
+
+.palette-color-label {
+  background-color: #3333335a;
+  border-radius: 4px;
+  color: #fff;
+  font-size: x-small;
+  max-width: 100%;
+  overflow: hidden;
+  padding: 0 4px;
+  pointer-events: none;
+  text-align: left;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.slider-container {
+  color: #fff;
+  padding-top: 5px;
+  text-align: center;
+  width: 100%;
+}
+.slider {
+  margin: 5px 5%;
+  width: 90%;
 }
