@@ -3,15 +3,17 @@ var imgData = null;
 var hexColor = null;
 
 var colorPreview = null;
-var colorPreviewHex = null;
+var colorName = null;
 var sliderR = null;
 var sliderB = null;
 var sliderG = null;
+var textR = null;
+var textG = null;
+var textB = null;
+var btnAdd = null;
 var btnPickNew = null;
-var btnAddColor = null;
 var btnSavePalette = null;
-var inputColorName = null;
-var paletteContainer = null;
+var palettePreview = null;
 var paletteBlocks = [];
 var currentPalette = {
     name: '',
@@ -22,8 +24,9 @@ chrome.extension.onMessage.addListener (function(msg, sender, sendResponse) {
     updateImgSrc(msg.url);
 });
 
-function addColorToPalette (color) {
+function addColorToPalette () {
     // Check if color is already in the current palette
+    color = getHexColor();
     if (currentPalette.colors.length) {
         let colors = currentPalette.colors.map(c => c.hex);
         if (colors.includes(color)){
@@ -32,16 +35,16 @@ function addColorToPalette (color) {
         }
     }
 
-    let colorName = '';
-    if (inputColorName.value !== '') {
-        colorName = inputColorName.value;
-        inputColorName.value = '';
+    let newColorName = '';
+    if (colorName.value !== '') {
+        newColorName = colorName.value;
+        colorName.value = '';
     }else{
-        colorName = color.toUpperCase();
+        newColorName = color.toUpperCase();
     }
 
     let newColor = {
-        name: colorName,
+        name: newColorName,
         hex: color
     }
     currentPalette.colors.push(newColor);
@@ -51,11 +54,11 @@ function addColorToPalette (color) {
     // console.log(color);
     block.style.backgroundColor = color;
     let label = document.createElement('div');
-    label.textContent = colorName;
+    label.textContent = newColorName;
     label.className = 'palette-color-label';
     block.appendChild(label);
 
-    paletteContainer.appendChild(block);
+    palettePreview.appendChild(block);
 }
 
 function getCursorPosition (canvas, event) {
@@ -79,6 +82,7 @@ function loadPalette () {
 function pickColor () {
     colorCaptureActive = false;
     updateEyeDropper();
+    colorName.select();
 }
 
 function rgbToHex (r, g, b) {
@@ -94,7 +98,7 @@ function updateColor (captureOff=false) {
     }
     
     colorPreview.style.backgroundColor = getHexColor();
-    colorPreviewHex.textContent = getHexColor().toUpperCase();
+    colorName.value = getHexColor().toUpperCase();
 }
 
 function updateEyeDropper() {
@@ -113,42 +117,42 @@ function updateImgSrc (url) {
     image.onload = function () {
         ctx = canvas.getContext("2d");
 
-        canvas.height = document.getElementById('toolbar-right').getBoundingClientRect()['height'];
-        canvas.width = document.getElementById('imgbox').getBoundingClientRect()['width'];
-
-        var hRatio = canvas.width / image.width;
-        var vRatio = canvas.height / image.height;
-        var ratio  = Math.min(hRatio, vRatio);
+        canvas.height = image.height;
+        canvas.width = image.width;
 
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         ctx.imageSmoothingEnabled = false;
-        ctx.drawImage(image, 0, 0, image.width, image.height, 0, 0, image.width * ratio, image.height * ratio);
+        ctx.drawImage(image, 0, 0);
 
         image.remove();
 
         canvas.addEventListener('click', pickColor);
         colorPreview = document.getElementById('color-preview');
-        colorPreviewHex = document.getElementById('color-preview-hex');
+        colorName = document.getElementById('color-name');
         sliderR = document.getElementById('range-red');
-        sliderR.oninput = function () { updateColor(captureOff=true) }
+        sliderR.oninput = function () { updateTextFromSliders() }
         sliderG = document.getElementById('range-green');
-        sliderG.oninput = function () { updateColor(captureOff=true) }
+        sliderG.oninput = function () { updateTextFromSliders() }
         sliderB = document.getElementById('range-blue');
-        sliderB.oninput = function () { updateColor(captureOff=true) }
-        btnPickNew = document.getElementById('btn-eye_dropper');
+        sliderB.oninput = function () { updateTextFromSliders() }
+        textR = document.getElementById('text-red');
+        textR.oninput = function () { updateSlidersFromText() }
+        textG = document.getElementById('text-green');
+        textG.oninput = function () { updateSlidersFromText() }
+        textB = document.getElementById('text-blue');
+        textB.oninput = function () { updateSlidersFromText() }
+        btnPickNew = document.getElementById('btn-eye-dropper');
         btnPickNew.onclick = function () {
             colorCaptureActive = !colorCaptureActive;
             updateEyeDropper();
         }
-        btnAddColor = document.getElementById('btn-add');
-        btnAddColor.onclick = function () {
-            if (colorCaptureActive == true) return;
-            addColorToPalette(getHexColor());
+        btnAdd = document.getElementById('btn-add');
+        btnAdd.onclick = function () {
+            addColorToPalette();
         }
         btnSavePalette = document.getElementById('btn-save-palette');
-        inputColorName = document.getElementById('color-name');
 
-        paletteContainer = document.getElementById('palette-container');
+        palettePreview = document.getElementById('palette-preview');
     }
 
     image.src = url;
@@ -161,9 +165,23 @@ function updateImgSrc (url) {
                 sliderR.value = imgData[0].toString();
                 sliderG.value = imgData[1].toString();
                 sliderB.value = imgData[2].toString();
-
                 updateColor();
             }
         }
     });
+}
+
+function updateSlidersFromText () {
+    // TODO: Validate input
+    sliderR.value = textR.value;
+    sliderG.value = textG.value;
+    sliderB.value = textB.value;
+    updateColor(captureOff=true);
+}
+
+function updateTextFromSliders () {
+    textR.value = sliderR.value;
+    textG.value = sliderG.value;
+    textB.value = sliderB.value;
+    updateColor(captureOff=true);
 }

@@ -1,65 +1,59 @@
 <html>
 
-  <head>
-    <link rel="stylesheet" type="text/css" href="style.css">
-    <script type="text/javascript" src="screenshot.js"></script>
-  </head>
+<head>
+  <link rel="stylesheet" type="text/css" href="style.css">
+  <script type="text/javascript" src="screenshot.js"></script>
+</head>
 
-  <body>
-    <table id="toolbar-top">
-      <tbody>
-        <tr>
-          <td>
-            <button id="btn-eye_dropper" class="btn btn-tooltip btn-active">
-              <img width="32" src="img/icon_eye_dropper.png">
-              <span class="tooltip">Eye dropper</span>
-            </button>
-          </td>
-          <td>
-            <button id="btn-save" class="btn btn-tooltip">
-              <img width="32" src="img/icon_save.png">
-              <span class="tooltip">Save image</span>
-            </button>
-          </td>
-          <td><button class="btn">Manage palettes</button></td>
-          <td><button class="btn">Visualizer</button></td>
-          <td><button class="btn">Grayscale UI</button></td>
-          <td><h2>Color Picker</h2></td>
-        </tr>
-      </tbody>
-    </table>
+<body>
+  <!-- TITLE BAR -->
+  <div id="title">
+    <button id="btn-eye-dropper" style="grid-column-start: 1; grid-column-end: 3; grid-row-start: 1;">Eye dropper</button>
+    <button id="btn-load" style="grid-column-start: 1; grid-column-end: 2; grid-row-start: 2;">Load</button>
+    <button id="btn-save-image" style="grid-column-start: 2; grid-column-end: 3; grid-row-start: 2;">Save</button>
+    <button id="btn-manage" style="grid-column-start: 3; grid-column-end: 4; grid-row-start: 1;">Manage palettes</button>
+    <button id="btn-manage" style="grid-column-start: 3; grid-column-end: 4; grid-row-start: 2;">Visualizer</button>
+    <h1 style="grid-column-start: 4; grid-row-start: 1; grid-row-end: 3;"><span style="color: #f55d42;">Pal</span><span style="color: #75aafe;">It</span></h1>
+    <button style="grid-row-start: 2;">Grayscale UI</button>
+  </div>
+  <!-- TOOLBAR -->
+  <div id="toolbar">
+    <div id="color-preview" class="gray-border">
+      <! -- 1x1 px transparent GIFs for relative sizing of preview -->
+      <img src="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="/>
     </div>
-    <div id="imgbox">
-      <canvas id="main-canvas">
-        Your browser does not support the HTML5 canvas tag.
-      </canvas>
+    <div>
+      <label style="color: #e7e8eb;">Color name:</label>
+      <input type="text" id="color-name" value="Color name" style="padding:0; width: 100%;"></input>
     </div>
-    <div id="toolbar-right">
-      <div id="color-preview">
-        <! -- 1x1 px transparent GIFs for relative sizing of preview -->
-        <img src="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="/>
-        <div id="color-preview-hex">preview</div>
-      </div>
-      <label>Color name:</label>
-      <input type="text" id="color-name">
-      <div class="slider-container">
-        <div>Red</div>
-        <input type="range" min="0" max="255" value="50" class="slider" id="range-red">
-        <div>Green</div>
-        <input type="range" min="0" max="255" value="50" class="slider" id="range-green">
-        <div>Blue</div>
-        <input type="range" min="0" max="255" value="50" class="slider" id="range-blue">
-      </div>
-      <label>Select palette:</label>
-      <select id="palette-dropdown">
-        <option>New palette</option>
-        <option>Living room</option>
-      </select>
-      <div id="palette-container"></div>
-      <button id="btn-save-palette" class="btn">Save as new palette</button>
-      <button id="btn-add" class="btn">Add to existing palette</button>
+    <button id="btn-add">Add color</button>
+    <!-- R/G/B SLIDER BOX -->
+    <div id="slider-box" class="gray-border">
+      <label style="color: #e7e8eb; grid-column-start: 1; grid-column-end: 3;">Red</label>
+      <input type="text" maxlength="3" value="50" id="text-red" style="grid-column-start: 1; grid-row-start: 2;"></input>
+      <input type="range" class="slider" min="0" max="255" value="50" id="range-red" style="grid-column-start: 2; grid-row-start: 2; width: 100%;">
+       <label style="color: #e7e8eb; grid-column-start: 1; grid-column-end: 3; grid-row-start: 3;">Green</label>
+      <input type="text" maxlength="3" value="50" id="text-green" style="grid-column-start: 1; grid-row-start: 4;"></input>
+      <input type="range" class="slider" min="0" max="255" value="50" id="range-green" style="grid-column-start: 2; grid-row-start: 4; width: 100%;">
+      <label style="color: #e7e8eb; grid-column-start: 1; grid-column-end: 3; grid-row-start: 5;">Blue</label>
+      <input type="text" maxlength="" ="3" value="50" id="text-blue" style="grid-column-start: 1; grid-row-start: 6;"></input>
+      <input type="range" class="slider" min="0" max="255" value="50" id="range-blue" style="grid-column-start: 2; grid-row-start: 6; width: 100%;">
+    </div>
+    <!-- PALETTE PREVIEW -->
+    <div id="palette-preview" class="gray-border"></div>
+    <!-- SAVE BTNS -->
+    <div id="save-btns">
+      <button style="font-size: x-small;" id="btn-save-palette">Save as new palette</button>
+      <button style="font-size: x-small;" id="btn-save-to-existing">Save to existing palette</button>
     </div>
     <img id="temp" src="img/icon32.png"/>
-  </body>
+  </div>
+  <!-- CANVAS -->
+  <div id="imgbox">
+    <canvas id="main-canvas">
+      Your browser does not support the HTML5 canvas tag.
+    </canvas>
+  </div>
 
+</body>
 </html>
